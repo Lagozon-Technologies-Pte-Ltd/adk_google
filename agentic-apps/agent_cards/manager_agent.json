@@ -1,0 +1,22 @@
+{
+  "name": "manager_agent",
+  "description": "Routes user requests to appropriate A2A agents.",
+  "version": "1.0.0",
+
+  "capabilities": {
+    "supportsStreaming": false,
+    "supportsTools": false
+  },
+
+  "skills": [
+    {
+      "id": "route_request",
+      "name": "Route Request",
+      "description": "Analyze user intent and delegate to other agents.",
+      "tags": ["routing", "orchestration"]
+    }
+  ],
+
+  "defaultInputModes": ["text"],
+  "defaultOutputModes": ["json"]
+}

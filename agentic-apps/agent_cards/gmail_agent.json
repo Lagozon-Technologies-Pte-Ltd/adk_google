@@ -1,0 +1,29 @@
+{
+  "name": "gmail_agent",
+  "description": "Manages email using Gmail MCP (send, read, summarize).",
+  "version": "1.0.0",
+  "url": "http://localhost:8002",
+
+  "capabilities": {
+    "supportsStreaming": false,
+    "supportsTools": true
+  },
+
+  "skills": [
+    {
+      "id": "send_email",
+      "name": "Send Email",
+      "description": "Send an email to one or more recipients.",
+      "tags": ["email", "send"]
+    },
+    {
+      "id": "read_email",
+      "name": "Read Email",
+      "description": "Read recent emails from the inbox.",
+      "tags": ["email", "read"]
+    }
+  ],
+
+  "defaultInputModes": ["text"],
+  "defaultOutputModes": ["json"]
+}

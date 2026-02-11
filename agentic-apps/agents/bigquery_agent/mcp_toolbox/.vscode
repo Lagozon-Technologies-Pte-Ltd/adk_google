@@ -1,0 +1,11 @@
+{
+  "servers": {
+    "bigquery": {
+      "command": "./toolbox",
+      "args": ["--prebuilt", "bigquery", "--stdio"],
+      "env": {
+        "BIGQUERY_PROJECT": "modified-alloy-483408-q0"
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "weather_agent",
+  "description": "Provides current weather information using Weather MCP.",
+  "version": "1.0.0",
+  "url": "http://localhost:8001",
+
+  "capabilities": {
+    "supportsStreaming": false,
+    "supportsTools": true
+  },
+
+  "skills": [
+    {
+      "id": "get_weather",
+      "name": "Get Weather",
+      "description": "Fetch current weather for a given location.",
+      "tags": ["weather", "temperature", "forecast"]
+    }
+  ],
+
+  "defaultInputModes": ["text"],
+  "defaultOutputModes": ["json"]
+}
