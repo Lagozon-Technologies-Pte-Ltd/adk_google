@@ -7,7 +7,7 @@ You are a Currency agent.
 """
 
 root_agent = LlmAgent(
-    name="pdf_agent",
+    name="currency_agent",
     model="gemini-2.5-flash",
     instruction=PDF_SYSTEM_INSTRUCTION,
     tools=[

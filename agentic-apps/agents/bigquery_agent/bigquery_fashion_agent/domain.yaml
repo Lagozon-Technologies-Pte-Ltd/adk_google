@@ -1,0 +1,107 @@
+domain: fashion_retail
+
+description: >
+  BigQuery analytics domain for a fashion retail business.
+  Covers inventory, sales transactions, products, customers,
+  marketing campaigns, and sales channels.
+
+rules:
+  - Never assume project, dataset, or table names
+  - Always discover datasets and tables using BigQuery tools
+  - Never hallucinate columns; use only defined schema
+  - Prefer aggregated insights unless raw data is requested
+  - Apply reasonable LIMITs unless explicitly overridden
+
+tables:
+
+  stock:
+    description: Inventory levels by product and country
+    columns:
+      country: STRING
+      product_id: INT64
+      stock_quantity: INT64
+
+  salesitems:
+    description: Line-level sales transaction data
+    columns:
+      item_id: INT64
+      sale_id: INT64
+      product_id: INT64
+      quantity: INT64
+      original_price: FLOAT
+      unit_price: FLOAT
+      discount_applied: FLOAT
+      discount_percent: FLOAT
+      discounted: INT64
+      item_total: FLOAT
+      sale_date: DATE
+      channel: STRING
+      channel_campaigns: STRING
+
+  sales:
+    description: Order-level sales records
+    columns:
+      sale_id: INT64
+      channel: STRING
+      discounted: INT64
+      total_amount: FLOAT
+      sale_date: DATE
+      customer_id: INT64
+      country: STRING
+
+  products:
+    description: Product master and catalog information
+    columns:
+      product_id: INT64
+      product_name: STRING
+      category: STRING
+      brand: STRING
+      color: STRING
+      size: STRING
+      catalog_price: FLOAT
+      cost_price: FLOAT
+      gender: STRING
+
+  customers:
+    description: Customer demographic and signup data
+    columns:
+      customer_id: INT64
+      country: STRING
+      age_range: STRING
+      signup_date: DATE
+
+  channels:
+    description: Sales channel reference table
+    columns:
+      string_field_0: STRING
+      string_field_1: STRING
+
+  campaigns:
+    description: Marketing campaign metadata
+    columns:
+      campaign_id: INT64
+      campaign_name: STRING
+      start_date: DATE
+      end_date: DATE
+      channel: STRING
+      discount_type: STRING
+      discount_value: FLOAT
+
+business_metrics:
+  revenue:
+    definition: SUM(sales.total_amount)
+
+  units_sold:
+    definition: SUM(salesitems.quantity)
+
+  average_discount:
+    definition: AVG(salesitems.discount_percent)
+
+  discounted_sales_ratio:
+    definition: AVG(sales.discounted)
+
+  inventory_on_hand:
+    definition: SUM(stock.stock_quantity)
+
+  gross_margin:
+    definition: SUM(salesitems.unit_price - products.cost_price)

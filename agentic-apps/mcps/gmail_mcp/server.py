@@ -139,14 +139,55 @@ def read_recent_emails(max_results: int = 5):
         body = extract_body(data["payload"])
 
         emails.append({
+            "id": msg["id"],
+            "thread_id": data.get("threadId"),
             "from": headers.get("From"),
             "subject": headers.get("Subject"),
+            "rfc_message_id": headers.get("Message-ID"),
+            "references": headers.get("References"),
             "date": headers.get("Date"),
             "body": body,
-            "id": msg["id"],
         })
 
+
     return emails
+@mcp.tool()
+def reply_email(
+    to: str,
+    subject: str,
+    rfc_message_id: str,
+    thread_id: str,
+    body: str,
+):
+    """
+    Reply to an email using RFC Message-ID (correct threading).
+    """
+    service = get_gmail_service()
+
+    if not subject.lower().startswith("re:"):
+        subject = f"Re: {subject}"
+
+    reply = MIMEText(body)
+    reply["To"] = to
+    reply["Subject"] = subject
+    reply["In-Reply-To"] = rfc_message_id
+    reply["References"] = rfc_message_id
+
+    raw = base64.urlsafe_b64encode(reply.as_bytes()).decode()
+
+    service.users().messages().send(
+        userId="me",
+        body={
+            "raw": raw,
+            "threadId": thread_id,  # Gmail-side threading
+        },
+    ).execute()
+
+    return {
+        "status": "replied",
+        "to": to,
+        "thread_id": thread_id,
+    }
 
 # ---------------- RUN ----------------
 

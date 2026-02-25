@@ -10,7 +10,7 @@ from google.adk.tools.mcp_tool import MCPToolset, StreamableHTTPConnectionParams
 from google.adk.a2a.utils.agent_to_a2a import to_a2a
 from .summarise_agent.summarise_Agent.agent import summarise_agent
 import uvicorn
-
+from config.settings import settings
 # from config.settings import settings
 system_instruction = """
 You are a Gmail assistant agent.
@@ -56,7 +56,8 @@ root_agent = LlmAgent(
         # 📧 Gmail MCP
         MCPToolset(
             connection_params=StreamableHTTPConnectionParams(
-                url="http://localhost:3000/mcp"   # Gmail MCP
+                url="http://localhost:3000/mcp" ,
+                
             )
         ),
         AgentTool(agent=summarise_agent)
