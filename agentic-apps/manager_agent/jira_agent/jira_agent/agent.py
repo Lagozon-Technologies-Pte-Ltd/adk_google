@@ -20,18 +20,18 @@ jira_remote = RemoteA2aAgent(
 )
 jira_agent_tool = AgentTool(agent=jira_remote)
 # 📧 Gmail agent (REMOTE A2A)
-gmail_remote = RemoteA2aAgent(
-    name="gmail_agent", 
-    description="Handles Gmail operations.",
-    agent_card="http://localhost:8002/.well-known/agent.json"
+workspace_remote = RemoteA2aAgent(
+    name="workspace_agent", 
+    description="Handles Google Workspace operations.",
+    agent_card="http://localhost:8006/.well-known/agent.json"
 )
-gmail_agent_tool = AgentTool(agent=gmail_remote)
+workspace_agent_tool = AgentTool(agent=workspace_remote)
 
 # 🧠 Manager Agent - Direct constructor (no .builder())
 root_agent = LlmAgent(
     name="manager_agent",
     model="gemini-2.5-flash",
     instruction=MANAGER_SYSTEM_INSTRUCTION,
-    tools=[jira_agent_tool, gmail_agent_tool, fashion_agent_tool]
+    tools=[jira_agent_tool, workspace_agent_tool, fashion_agent_tool]
 )
 

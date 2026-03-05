@@ -10,6 +10,8 @@ import uvicorn
 import pytz  # pip install pytz
 from datetime import datetime
 from google.adk.tools.function_tool import FunctionTool
+from config.settings import settings
+
 def get_current_time(timezone: str = "Asia/Kolkata") -> str:
     """Get the current date and time in the specified timezone (default IST).
     Use for any date/time questions."""
@@ -35,6 +37,20 @@ IDENTITY & AUTHENTICATION RULES:
 - Do NOT include any email address in tool arguments unless explicitly required
   by the tool schema.
 - Authentication and user identity are handled internally by the MCP server.
+- WHile creating events also pass timezone as "Asia/Kolkata" in the event details to ensure correct scheduling.
+CONTACT RESOLUTION USING list_contacts (MANDATORY):
+
+- The search_contacts tool MUST be used to resolve email addresses when
+  the user provides a person's name without an email.
+
+- You MUST call search_contacts and filter the results by matching
+  the contact name against the provided name.
+
+- If a contact with a matching name is found and it has an email address,
+  you MUST use that email automatically.
+
+- You MUST NOT ask the user for an email address unless search_contacts
+  returns no matching contact with an email.
 
 FILE ATTACHMENT & DOWNLOAD RULES:
 - When sending files as email attachments, you MUST first use the
@@ -62,6 +78,18 @@ SHARING CONFIRMATION EMAIL RULE:
   - Include the view link returned by the share_drive_file tool
   - Use wording similar to:
     "I am sharing the '[file name]' with you."
+
+SPREADSHEET CREATION & FORMATTING RULES:
+- When creating Google Sheets:
+  - You MUST apply appropriate formatting based on the data being created.
+- Formatting requirements include (when applicable):
+  - Header row MUST be bold
+  - Header background color should be applied for readability
+  - Column widths should be auto-adjusted
+  - Dates must use proper date formats
+  - Numeric fields (salary, amounts, counts) must use appropriate number formats
+  - Text fields must remain left-aligned, numeric fields right-aligned
+- The sheet must be readable and presentation-ready by default.
 
 Your responsibility is to perform actions and retrieve information using
 Google Workspace services, including:
@@ -120,7 +148,7 @@ root_agent = LlmAgent(
                 url="http://localhost:8005/mcp"
             )
         ),
-        get_current_time,download_attachment
+        get_current_time
         # Optional summarizer agent
         # AgentTool(agent=summarise_agent),
     ],

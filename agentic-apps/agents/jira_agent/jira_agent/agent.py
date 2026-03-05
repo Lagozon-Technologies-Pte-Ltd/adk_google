@@ -64,7 +64,7 @@ root_agent = LlmAgent(
         MCPToolset(
             connection_params=StreamableHTTPConnectionParams(
                 url="https://mcp.atlassian.com/v1/mcp",
-                headers={"Authorization": f"Bearer 712020-26413c52-dacd-4856-82fe-cfe3637c25f2:D9U5aBTXvmhbNWa7:U_s67stJaXLiT1Kcb0mHw3CB88UhRTp2"}
+                headers={"Authorization": f"Bearer 712020-26413c52-dacd-4856-82fe-cfe3637c25f2:D9U5aBTXvmhbNWa7:zjon5-H9Wez9w_vuaZFu-TMJqBFKdqsW"}
             )
         ),
         # Optional summarizer agent

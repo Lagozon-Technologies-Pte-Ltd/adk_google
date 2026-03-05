@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">AI Desk</div>
+      <p class="subtitle">FastAPI agent workspace</p>
+      <button id="new-chat-btn" class="secondary-btn" type="button">New Chat</button>
+
+      <section class="history-panel" aria-label="Chat history">
+        <h2>History</h2>
+        <div id="session-list" class="session-list"></div>
+      </section>
+
+      <div class="status" id="status-pill">Connecting...</div>
+    </aside>
+
+    <main class="chat-panel">
+      <header class="panel-header">
+        <h1>Agentic Assistant</h1>
+      </header>
+
+      <section id="chat" class="chat-log" aria-live="polite"></section>
+
+      <form id="chat-form" class="composer">
+        <label for="msg" class="sr-only">Message</label>
+        <input id="msg" name="msg" placeholder="Ask anything about your workflow..." autocomplete="off" />
+        <button id="send-btn" type="submit">Send</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
